@@ -5,6 +5,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
+      #headmenu {
+        display: none;
+        margin: 0px;
+        background-color: white;
+        border-bottom: 1px grey solid;
+      }
       li {
         margin: 10px;
       }
@@ -71,10 +77,23 @@
       .dot:hover {
         background-color: MidnightBlue;
       }
-      #headmenu {
-        display: none;
-        margin: 0px;
-        background-color: grey;
+      #colorboxes{
+        text-align: center;
+    margin-left: calc(4% + 290px);
+    position: absolute;
+    top: calc(3% + 40vw + 3%);
+    margin-right: 6%;
+    right: 0;
+      }
+      .cl{
+        display: inline-block;
+    width: 20vw;
+    height: 20vw;
+    background-color: purple;
+    margin: 1vw;
+      }
+      .cl:nth-of-type(2n+1){
+        background-color: blue;
       }
       @media only screen and (max-width: 760px) {
         #headmenu {
@@ -88,7 +107,7 @@
         #carousel {
           width: 95%;
           height: 70vw;
-          top: 50px;
+          top: 58px;
           left: 2.5%;
           right: 2.5%;
           margin: 0;
@@ -106,6 +125,15 @@
           float: left;
           left: 50%;
           position: relative;
+        }
+        #colorboxes{
+          margin:0px;
+          top: calc(70px + 70vw)
+        }
+        .cl{
+          width: 40vw;
+          height: 40vw;
+          margin: 2vw;
         }
       }
     </style>
@@ -163,7 +191,20 @@
         ><span class="dot" id="button3" onclick="toPic3()"></span>
       </div>
     </div>
-    <div style="width: 100%; height: 1000px; background-color: aliceblue"></div>
+    <div id="colorboxes">
+      <div class="cl"></div>
+      <div class="cl"></div>
+      <div class="cl"></div>
+      <div class="cl"></div>
+      <div class="cl"></div>
+      <div class="cl"></div>
+      <div class="cl"></div>
+      <div class="cl"></div>
+      <div class="cl"></div>
+      <div class="cl"></div>
+      <div class="cl"></div>
+      <div class="cl"></div>
+    </div>
     <script>
       function toPic1() {
         document.getElementById("button1").style.background = "midnightblue";
