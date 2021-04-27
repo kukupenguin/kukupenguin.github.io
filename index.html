@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -66,15 +67,27 @@
         margin-top: 1%;
         text-align: center;
       }
+      #headmenu{
+        display: none;
+        margin: 0px;
+        background-color: grey;
+      }
       @media only screen and (max-width: 760px) {
+        #headmenu{
+          display: block;
+          position: fixed;
+          z-index: 1;
+        }
         #navbar {
           display: none;
         }
         #carousel{
           width: 95%;
           height: 70vw;
-          position: relative;
-          top: 20px;
+          top:0px;
+          left: 2.5%;
+          right: 2.5%;
+          margin: 50px auto;
         }
         .dot{
           width: 7px;
@@ -84,7 +97,9 @@
       }
     </style>
   </head>
-  <body>
+  <body style="margin: 0px;">
+    <div id="headmenu" style="width: 100vw; height: 50px;">
+    </div>
     <div id="navbar">
       <img src="images/kikikoko.png" width="140px" height="140px" id="kiki" />
       <ul style="list-style-type: none">
@@ -136,6 +151,7 @@
         <span class="dot" id="button3" onclick="toPic3()"></span>
       </div>
     </div>
+    <div style="width: 100%; height: 1000px; background-color: aliceblue;"></div>
     <script>
       function toPic1() {
         document.getElementById("button1").style.background = "midnightblue";
