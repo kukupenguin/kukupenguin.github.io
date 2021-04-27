@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -18,30 +17,17 @@
         position: relative;
         top: 50px;
         width: 250px;
+        margin-left: 4%;
       }
       #carousel {
-        margin: 1% 6% auto 2%;
+        margin: 1% 6% auto 40px;
         height: 40vw;
         display: inline-block;
         position: absolute;
         top: 3%;
         overflow: hidden;
       }
-      .dot {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        cursor: pointer;
-        background: lightblue;
-        display: inline-block;
-        margin: 0 8px;
-      }
-      #button1{
-        background: midnightblue;
-      }
-      .dot:hover {
-        background-color: MidnightBlue;
-      }
+
       #carousel-pic {
         height: 95%;
       }
@@ -67,16 +53,31 @@
         top: 0;
       }
       .indicators {
-        margin-top: 1%;
+        height: 2vw;
         text-align: center;
       }
-      #headmenu{
+      .dot {
+        width: 1vw;
+        height: 1vw;
+        border-radius: 50%;
+        cursor: pointer;
+        background: lightblue;
+        display: inline-block;
+        margin: 1vw 8px;
+      }
+      #button1 {
+        background: midnightblue;
+      }
+      .dot:hover {
+        background-color: MidnightBlue;
+      }
+      #headmenu {
         display: none;
         margin: 0px;
         background-color: grey;
       }
       @media only screen and (max-width: 760px) {
-        #headmenu{
+        #headmenu {
           display: block;
           position: fixed;
           z-index: 1;
@@ -84,25 +85,33 @@
         #navbar {
           display: none;
         }
-        #carousel{
+        #carousel {
           width: 95%;
           height: 70vw;
-          top:0px;
+          top: 50px;
           left: 2.5%;
           right: 2.5%;
-          margin: 50px auto;
+          margin: 0;
         }
-        .dot{
-          width: 7px;
-          height: 7px;
-          transform: translateY(-5px);
+        .indicators {
+          float:right;
+          left:-50%;
+          position: relative;
+          height: 3.5vw;
+        }
+        .dot {
+          width: 2.5vw;
+          height: 2.5vw;
+          margin-top: 1vw;
+          float: left;
+          left: 50%;
+          position: relative;
         }
       }
     </style>
   </head>
-  <body style="margin: 0px;">
-    <div id="headmenu" style="width: 100vw; height: 50px;">
-    </div>
+  <body style="margin: 0px">
+    <div id="headmenu" style="width: 100vw; height: 50px"></div>
     <div id="navbar">
       <img src="images/kikikoko.png" width="140px" height="140px" id="kiki" />
       <ul style="list-style-type: none">
@@ -149,12 +158,12 @@
         </div>
       </div>
       <div class="indicators">
-        <span class="dot" id="button1" onclick="toPic1()"></span>
-        <span class="dot" id="button2" onclick="toPic2()"></span>
-        <span class="dot" id="button3" onclick="toPic3()"></span>
+        <span class="dot" id="button1" onclick="toPic1()"></span
+        ><span class="dot" id="button2" onclick="toPic2()"></span
+        ><span class="dot" id="button3" onclick="toPic3()"></span>
       </div>
     </div>
-    <div style="width: 100%; height: 1000px; background-color: aliceblue;"></div>
+    <div style="width: 100%; height: 1000px; background-color: aliceblue"></div>
     <script>
       function toPic1() {
         document.getElementById("button1").style.background = "midnightblue";
