@@ -24,6 +24,7 @@
         top: 50px;
         width: 250px;
         margin-left: 4%;
+        z-index: 1;
       }
       #carousel {
         margin: 1% 6% auto 40px;
@@ -101,8 +102,30 @@
           position: fixed;
           z-index: 1;
         }
+        #hamburger{
+          display: inline-block;
+          width: 50px;
+          height: 50px;
+          background: rgb(80, 229, 235);
+          cursor: pointer;
+        }
         #navbar {
+          width: 90vw;
           display: none;
+          background-color: aliceblue;
+          margin: 0;
+        }
+        #navbar::before{
+          content: "目錄";
+          display: block;
+          margin: 10px;
+          
+        }
+        #kiki{
+          display: none;
+        }
+        #navbar ul{
+          padding: 0;
         }
         #carousel {
           width: 95%;
@@ -139,7 +162,10 @@
     </style>
   </head>
   <body style="margin: 0px">
-    <div id="headmenu" style="width: 100vw; height: 50px"></div>
+    <div id="headmenu" style="width: 100vw; height: 50px">
+      
+      <div id="hamburger" onclick="toggle()"></div>
+    </div>
     <div id="navbar">
       <img src="images/kikikoko.png" width="140px" height="140px" id="kiki" />
       <ul style="list-style-type: none">
@@ -238,6 +264,18 @@
           "translate(-200%)";
         document.getElementsByClassName("pic")[2].style.transform =
           "translate(-200%)";
+      }
+      var toggleStatus = false;
+      function toggle(){
+        if(toggleStatus == false){
+          document.getElementById("navbar").style.display = "inline-block";
+          toggleStatus = true;
+        }
+        else{
+          document.getElementById("navbar").style.display = "none";
+          toggleStatus = false;
+        }
+
       }
     </script>
   </body>
