@@ -78,22 +78,22 @@
       .dot:hover {
         background-color: MidnightBlue;
       }
-      #colorboxes{
+      #colorboxes {
         text-align: center;
-    margin-left: calc(4% + 290px);
-    position: absolute;
-    top: calc(3% + 40vw + 3%);
-    margin-right: 6%;
-    right: 0;
+        margin-left: calc(4% + 290px);
+        position: absolute;
+        top: calc(3% + 40vw + 3%);
+        margin-right: 6%;
+        right: 0;
       }
-      .cl{
+      .cl {
         display: inline-block;
-    width: 20vw;
-    height: 20vw;
-    background-color: purple;
-    margin: 1vw;
+        width: 20vw;
+        height: 20vw;
+        background-color: purple;
+        margin: 1vw;
       }
-      .cl:nth-of-type(2n+1){
+      .cl:nth-of-type(2n + 1) {
         background-color: blue;
       }
       @media only screen and (max-width: 760px) {
@@ -102,7 +102,7 @@
           position: fixed;
           z-index: 1;
         }
-        #hamburger{
+        #hamburger {
           display: inline-block;
           width: 50px;
           height: 50px;
@@ -111,22 +111,22 @@
         }
         #navbar {
           position: fixed;
-          width: 90vw;
-          display: none;
+          bottom: 0px;
+          width: 0;
+          overflow: hidden;
           background-color: aliceblue;
           margin: 0;
-          height: calc(100vh - 50px);
+          transition: 0.2s;
         }
-        #navbar::before{
+        #navbar::before {
           content: "目錄";
           display: block;
           margin: 10px;
-          
         }
-        #kiki{
+        #kiki {
           display: none;
         }
-        #navbar ul{
+        #navbar ul {
           padding: 0;
         }
         #carousel {
@@ -138,8 +138,8 @@
           margin: 0;
         }
         .indicators {
-          float:right;
-          left:-50%;
+          float: right;
+          left: -50%;
           position: relative;
           height: 3.5vw;
         }
@@ -151,11 +151,11 @@
           left: 50%;
           position: relative;
         }
-        #colorboxes{
-          margin:0px;
-          top: calc(70px + 70vw)
+        #colorboxes {
+          margin: 0px;
+          top: calc(70px + 70vw);
         }
-        .cl{
+        .cl {
           width: 40vw;
           height: 40vw;
           margin: 2vw;
@@ -165,7 +165,6 @@
   </head>
   <body style="margin: 0px">
     <div id="headmenu" style="width: 100vw; height: 50px">
-      
       <div id="hamburger" onclick="toggle()"></div>
     </div>
     <div id="navbar">
@@ -268,23 +267,23 @@
           "translate(-200%)";
       }
       var toggleStatus = false;
-      function toggle(){
-        if(toggleStatus == false){
-          document.getElementById("navbar").style.display = "inline-block";
+      function toggle() {
+        if (toggleStatus == false) {
+          document.getElementById("navbar").style.width = "90vw";
+          //document.getElementById("navbar").style.display = "inline-block";
           toggleStatus = true;
-        }
-        else{
-          document.getElementById("navbar").style.display = "none";
+        } else {
+          document.getElementById("navbar").style.width = "0";
+          //document.getElementById("navbar").style.display = "none";
           toggleStatus = false;
         }
-
       }
-      document.addEventListener('click', function(e){
-        var x=e.offsetX;
-        var y=document.getElementById("navbar").offsetWidth;
-        if(x>y){
-          document.getElementById("navbar").style.display = "none";
-          toggleStatus = false;
+      document.addEventListener("click", function (e) {
+        if (document.body.clientWidth <= 760) {
+          if (e.clientX > document.body.clientWidth * 0.9) {
+            document.querySelector("#navbar").style.width = "0";
+            toggleStatus = false;
+          }
         }
       });
     </script>
