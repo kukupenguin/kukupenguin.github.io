@@ -266,6 +266,19 @@
         document.getElementsByClassName("pic")[2].style.transform =
           "translate(-200%)";
       }
+      var curPic=0;
+        var picArray=[toPic1, toPic2, toPic3];
+        function setPic(){
+          picArray[curPic]();
+          curPic++;
+          if(curPic==3)
+            curPic=0;
+        }
+      
+      setInterval(setPic, 3000);
+    
+
+
       var toggleStatus = false;
       function toggle() {
         if (toggleStatus == false) {
