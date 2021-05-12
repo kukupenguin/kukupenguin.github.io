@@ -5,10 +5,148 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>game</title>
+  <style>
+    body{
+      margin: 0px;
+    }
+    #gameArea{
+      margin-top: 5vh;
+      width: 100%;
+      height: 50vh;
+      
+      background-color:lightblue;
+      overflow: hidden;
+    }
+    #ball{
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      position: relative;
+      top: 60%;
+      left: 40px;
+      background-color: crimson;
+      z-index: 1;
+    }
+    #line{
+      height: 1px;
+      width: 100%;
+      background-color: black;
+      position: relative;
+      top: 60%;
+    }
+    #rock{
+      width: 50px;
+      height: 30px;
+      background-color: green;
+      position: relative;
+      top: calc(60% - 31px);
+      animation: rockMove 2s linear infinite;
+    }
+    #score{
+      position: relative;
+      right: 20px;
+      float: right;
+      font-size: 2vh;
+    }
+    #rePic{ 
+      position: absolute;
+      width: 100%;
+      height: 50vh;
+      background-color: gray;
+      opacity: 0.5;
+      display: none;
+      text-align: center;
+       line-height: 250px;
+    }
+    @keyframes rockMove{
+      0%{
+        left: 100%;
+      }
+      100%{
+        left: -15%;
+      }
+    }
+    @keyframes ballMove{
+      0%{
+        top: 60%;
+      }
+      100%{
+        top: 10vh;
+      }
+    }
+  </style>
 </head>
 <body>
     <div style="text-align: center; margin-top: 50px;">
     <h1>ようこそ</h1>
-    <h1><a href="index.html">戻り</a></h1></div>
+    <h1><a href="index.html">戻る</a></h1></div>
+    <div id="gameArea">
+      <div id="rePic" onclick="gameStart()" onkeydown="gameStart(e)"><h2>GAME OVER</h2></div>
+      <div id="ball"></div>
+      <div id="line"></div>
+      <div id="rock"></div>
+      <span id="score">score 00000</span>
+    </div>
+    
 </body>
+<script>
+  var ballUp = false;
+  document.addEventListener('keydown', function(e){
+    if(document.getElementById("rePic").style.display=="block" && (e.keyCode == '38' || e.keyCode == '32')){
+      gameStart();
+    }
+    else if(ballUp == false && (e.keyCode == '38' || e.keyCode == '32')){
+    const ballE=document.getElementById("ball");
+    ballE.style.animation = "ballMove 0.3s linear 2 alternate";
+    ballUp = true;
+    setTimeout(function(){
+      ballUp = false;
+      ballE.style.animation="";
+    }, 600);
+    }
+  })
+  document.addEventListener('touchstart', function(){
+    if(ballUp == false){
+    const ballE=document.getElementById("ball");
+    ballE.style.animation = "ballMove 0.3s linear 2 alternate";
+    ballUp = true;
+    setTimeout(function(){
+      ballUp = false;
+      ballE.style.animation="";
+    }, 600);
+    
+
+    }
+  })
+  function checkLose(){
+    var bx = document.getElementById("ball").offsetLeft;
+    var by = document.getElementById("ball").offsetTop;
+    var rx = document.getElementById("rock").offsetLeft;
+    var ry = document.getElementById("rock").offsetTop;
+    console.log(bx + ' ' + rx)
+    console.log(by + ' ' + ry)
+    if(Math.abs(bx-rx)<15 && Math.abs(by-ry)<15){
+      document.getElementById("rock").style.animationPlayState = "paused";
+      clearInterval(checkSet);
+      clearInterval(timeSet);
+      document.getElementById("rePic").style.display = "block";
+    }
+    
+  }
+  var checkSet = setInterval(checkLose, 100);
+
+  function gameStart(){
+    location.reload();
+  }
+
+  var seconds=0; 
+  function time(){
+    seconds++;
+    var str="";
+    for(var i=0; i<5-seconds.toString().length; i++)
+      str+='0';
+    document.getElementById("score").innerHTML="score " + str + seconds;
+  }
+  var timeSet=setInterval(time, 100);
+</script>
 </html>
