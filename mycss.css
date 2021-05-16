@@ -4,6 +4,17 @@
     background-color: white;
     border-bottom: 1px grey solid;
   }
+  #topDiv{
+    margin-top: 5%;
+    margin-left: 5%;
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  #rightTwo{
+    text-align: center;
+  }
+
   li {
     margin: 10px;
   }
@@ -14,43 +25,27 @@
   #navbar {
     display: inline-block;
     position: relative;
-    top: 50px;
-    width: 250px;
     margin-left: 4%;
     z-index: 1;
   }
   #carousel {
-    margin: 1% 6% auto 40px;
+    margin: 1% auto auto 6vw;
     height: 40vw;
+    width: 60vw;
     display: inline-block;
-    position: absolute;
-    top: 3%;
-    overflow: hidden;
+     overflow: hidden; 
   }
 
   #carousel-pic {
+    width: 180vw;
     height: 95%;
+    clear: both;
   }
   .pic {
-    transition: 0.5s;
-  }
-  #cp1 {
-    width: 100%;
+    width: 60vw;
     height: 100%;
-  }
-  #cp2 {
-    height: 95%;
-    width: 100%;
-    position: absolute;
-    left: 100%;
-    top: 0;
-  }
-  #cp3 {
-    height: 95%;
-    width: 100%;
-    position: absolute;
-    left: 200%;
-    top: 0;
+    transition: 0.5s;
+    float: left;
   }
   .indicators {
     height: 2vw;
@@ -72,24 +67,125 @@
     background-color: MidnightBlue;
   }
   #colorboxes {
-    text-align: center;
-    margin-left: calc(4% + 290px);
-    position: absolute;
-    top: calc(3% + 40vw + 3%);
-    margin-right: 6%;
-    right: 0;
+   
+    margin-left: 6vw;
+    width: 60vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
   }
   .cl {
     display: inline-block;
-    width: 20vw;
-    height: 20vw;
-    background-color: purple;
-    margin: 1vw;
+    width: 13vw;
+    height: 13vw;
+    margin: 1vw 0;
+    border: 1px solid black;
   }
-  .cl:nth-of-type(2n + 1) {
+  #game1{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+  #ball{
+    width: 20%;
+    height: 20%;
+    border-radius: 50%;
     background-color: blue;
+    animation: ballMove 2s 0.3s linear forwards infinite;
+    position: relative;
+    margin-top: 30%;
+    left: 10px;
+  }
+  #rock{
+  width: 30%;
+  height: 20%;
+  background-color: red;
+  animation: rockMove 2s linear forwards infinite;
+  position: relative;
+}
+  #line{
+    height: 1px;
+    width: 100%;
+    background-color: black;
+    align-self: flex-start;
+  }
+  @keyframes rockMove {
+    0%{
+      left: 100%;
+    }
+    100%{
+      left: -100%;
+    }
+  }
+  @keyframes ballMove {
+    0%{
+      bottom : 0%;
+    }
+    50%{
+      bottom: 40%;
+    }
+    100%{
+      bottom : 0%;
+    }
+  }
+
+  #game2{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    overflow: hidden;
+  }
+  #tLine{
+    margin-top: 15%;
+    height: 1px;
+    width: 100%;
+    background-color: black;
+  }
+  #tRock{
+    width: 30%;
+    height: 20%;
+    background-color: red;
+    animation: rockMove 2s linear forwards infinite;
+    position: relative;
+  }
+  #ball2{
+    margin-top: 40%;
+    width: 20%;
+    height: 20%;
+    border-radius: 50%;
+    background-color: blue;
+    position: relative;
+    animation: ballMove 2s 0.7s linear forwards infinite;
+  }
+  #bRock{
+    align-self: flex-end;
+    width: 30%;
+    height: 20%;
+    background-color: red;
+    animation: rockMove 2s 0.3s linear forwards infinite;
+    position: relative;
+  }
+  #bLine{
+    height: 1px;
+    width: 100%;
+    background-color: black;
+    
   }
   @media only screen and (max-width: 760px) {
+    #topDiv{
+      margin: 0px;
+      display: block;
+      margin-right: 2.5vw;
+    }
+    #rightTwo {
+      margin: 0px;
+    }
     #headmenu {
       display: block;
       position: fixed;
@@ -104,7 +200,7 @@
     }
     #navbar {
       position: fixed;
-      bottom: 0px;
+      top: 51px;
       width: 0;
       overflow: hidden;
       background-color: aliceblue;
@@ -123,12 +219,15 @@
       padding: 0;
     }
     #carousel {
-      width: 95%;
+      width: 95vw;
       height: 70vw;
-      top: 58px;
-      left: 2.5%;
-      right: 2.5%;
-      margin: 0;
+      margin: 51px 0px auto 0px;
+    }
+    #carousel-pic{
+      width: 285vw;
+    }
+    .pic {
+      width: 95vw;
     }
     .indicators {
       float: right;
@@ -145,12 +244,14 @@
       position: relative;
     }
     #colorboxes {
-      margin: 0px;
-      top: calc(70px + 70vw);
+      width: 95vw;
+      margin: 0 auto;
+      justify-content: space-around;
     }
     .cl {
       width: 40vw;
       height: 40vw;
       margin: 2vw;
+      margin-top: 3vw;
     }
   }

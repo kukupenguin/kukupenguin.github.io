@@ -1,0 +1,161 @@
+
+
+<!DOCTYPE html>  
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>game1</title>
+  <style>
+    body{
+      margin: 0px;
+    }
+    #gameArea{
+      margin-top: 5vh;
+      width: 100%;
+      height: 50vh;
+      
+      background-color:lightblue;
+      overflow: hidden;
+    }
+    #ball{
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      position: relative;
+      top: 60%;
+      left: 40px; 
+      background-color: blue;
+      z-index: 1;
+    }
+    #line{
+      height: 1px;
+      width: 100%;
+      background-color: black;
+      position: relative;
+      top: 60%;
+    }
+    #rock{
+      width: 50px;
+      height: 30px;
+      background-color: red;
+      position: relative;
+      top: calc(60% - 31px);
+      left: 100%;
+      animation: rockMove 2s linear forwards;
+    }
+    #score{
+      position: relative;
+      right: 20px;
+      float: right;
+      font-size: 2vh;
+    }
+    #rePic{ 
+      position: absolute;
+      width: 100%;
+      height: 50vh;
+      background-color: gray;
+      opacity: 0.5;
+      display: none;
+      text-align: center;
+       line-height: 250px;
+    }
+    @keyframes rockMove{
+      0%{
+        left: 100%;
+      }
+      100%{
+        left: -15%;
+      }
+    }
+    @keyframes ballMove{
+      0%{
+        top: 60%;
+      }
+      50%{
+        top: 10vh;
+      }
+      100%{
+        top: 60%;
+      }
+    }
+  </style>
+</head>
+<body>
+    <div style="text-align: center; margin-top: 50px;">
+<!--     <h1>ようこそ</h1>
+    <h1><a href="index.html">戻る</a></h1></div> -->
+    <div id="gameArea">
+      <div id="rePic" onclick="gameStart()"><h2>GAME OVER</h2></div>
+      <div id="ball"></div>
+      <div id="line"></div>
+      <div id="rock"></div>
+      <span id="score">score 00000</span>
+    </div>
+    
+</body>
+<script>
+  var ballUp = false;
+  const ballE=document.getElementById("ball");
+  document.addEventListener('keydown', function(e){
+    if(document.getElementById("rePic").style.display=="block" && (e.keyCode == '38' || e.keyCode == '32')){
+      gameStart();
+    }
+    else if(e.keyCode == '38' || e.keyCode == '32'){
+    ballE.style.animation = "ballMove 0.6s";
+    }
+  })
+  ballE.addEventListener("animationend", function(){
+      ballE.style.animationName = '';
+    })
+  
+  document.addEventListener('touchstart', function(){
+    if(document.getElementById("rePic").style.display!="block")
+      ballE.style.animation = "ballMove 0.6s linear";
+  })
+    //改變障礙物速度
+  var rockE = document.getElementById("rock");
+  rockE.addEventListener("animationend", function(){
+    console.log((Math.floor(Math.random()*3)+2)/2 +'s');
+    rockE.style.animationName="none";
+    setTimeout(function(){
+      rockE.style.animation="rockMove 2s linear forwards";
+      if(seconds<100)
+        rockE.style.animationDuration = (Math.floor(Math.random()*3)+2)/2  +'s';
+      else if(seconds<200)
+        rockE.style.animationDuration = (Math.floor(Math.random()*3)+2)/3  +'s';
+      else
+      rockE.style.animationDuration = (Math.floor(Math.random()*3)+2)/4  +'s';
+    }, 100)
+  }); 
+  function checkLose(){
+    var bx = document.getElementById("ball").offsetLeft;
+    var by = document.getElementById("ball").offsetTop;
+    var rx = document.getElementById("rock").offsetLeft;
+    var ry = document.getElementById("rock").offsetTop;
+    if(Math.abs(bx-rx)<=30 && Math.abs(by-ry)<=30){
+      document.getElementById("rock").style.animationPlayState = "paused";
+      document.getElementById("ball").style.animationPlayState = "paused";
+      clearInterval(checkSet);
+      clearInterval(timeSet);
+      document.getElementById("rePic").style.display = "block";
+    }
+    
+  }
+  var checkSet = setInterval(checkLose, 10);
+
+  function gameStart(){
+    location.reload();
+  }
+
+  var seconds=0; 
+  function time(){
+    seconds++;
+    var str="";
+    for(var i=0; i<5-seconds.toString().length; i++)
+      str+='0';
+    document.getElementById("score").innerHTML="score " + str + seconds;
+  }
+  var timeSet=setInterval(time, 100);
+</script>
+</html>

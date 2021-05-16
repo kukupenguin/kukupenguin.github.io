@@ -64,11 +64,3 @@ function toPic1() {
       }
     }
   });
-  function myFunction() {
-    if(document.getElementById("pwd").value == "game"){
-        alert("welcome");
-        window.open("game.html","_self");
-    }
-    else
-        alert("wrong")
-  }

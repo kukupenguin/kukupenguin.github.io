@@ -1,0 +1,216 @@
+
+<!DOCTYPE html>  
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>game2</title>
+  <style>
+    body{
+      margin: 0px;
+    }
+    #gameArea{
+      margin-top: 20vh;
+      height: 50vh;
+      background-color:lightblue;
+      border: 1px solid white;
+      overflow: hidden;
+    }
+    #score{
+      margin-right: 20px;
+      float: right;
+      font-size: 3vh;
+      line-height: 60px;
+    }
+    #tLine{
+      margin-top: 10vh;
+      height: 1px;
+      background-color: black;
+      
+    }
+    #tRock{
+      width: 50px;
+      height: 30px;
+      background-color: red;
+      animation: topRockMove 3s linear forwards infinite;
+      position: relative;
+      margin-bottom: 15vh;
+    }
+    #ball{
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: blue;
+      z-index: 100;
+      position: relative;
+      left: 10px;
+      float: left;
+    }
+    #rock{
+      width: 50px;
+      height: 30px;
+      background-color: red;
+      animation: rockMove 2s linear forwards infinite;
+      position: relative;
+    }
+    #bLine{
+      height: 1px;
+      background-color: black;
+      
+    }
+    #rePic{ 
+      position: absolute;
+      left: 0px;
+      top: 20vh;
+      height: 50vh;
+      width: 100vw;
+      background-color: gray;
+      opacity: 0.5;
+      display: none;
+      text-align: center;
+       line-height: 250px;
+       
+
+    }
+    @keyframes topRockMove {
+      0%{
+        left: 100%;
+      }
+      100%{
+        left: -15%;
+      }
+    }
+    @keyframes rockMove{
+      0%{
+        left: 100%;
+      }
+      100%{
+        left: -15%;
+      }
+    }
+    @keyframes ballUpMove {
+      0%{
+        bottom: 0%;
+      }
+      100%{
+        bottom: calc(15vh + 30px);
+      }
+    }
+    @keyframes ballDownMove {
+      0%{
+        bottom: calc(15vh + 30px);
+      }
+      100%{
+        bottom: 0%;
+      }
+    }
+  </style>
+</head>
+<body>
+<!--     <div style="text-align: center; margin-top: 50px;">
+     <h1>ようこそ</h1>
+    <h1><a href="index.html">戻る</a></h1></div> --> 
+    <div id="gameArea">
+      <div id="rePic" onclick="gameStart()"><h2>GAME OVER</h2></div>
+      <span id="score">score 00000</span>
+      <div id="tLine"></div>
+      <div id="tRock"></div>
+      <div id="ball"></div>
+      <div id="rock"></div>
+      <div id="bLine"></div>
+    </div>
+    
+</body>
+<script>
+  var ballUp = false;
+  const ballE=document.getElementById("ball");
+  document.addEventListener('keydown', function(e){
+    if(document.getElementById("rePic").style.display=="block" && (e.keyCode == '38' || e.keyCode == '32')){
+      gameStart();
+    }
+    else if(e.keyCode == '38' || e.keyCode == '32'){
+      if(ballUp==false){
+        ballE.style.animation = "ballUpMove 1s linear forwards";
+      }
+      else{
+        ballE.style.animation = "ballDownMove 1s linear forwards";
+      } 
+    }
+  })
+    ballE.addEventListener("animationend", function(){
+      if(ballE.style.animationName == "ballUpMove")
+        ballUp = true;
+      else
+        ballUp = false;
+    })  
+  
+  document.addEventListener('touchstart', function(){
+    if(document.getElementById("rePic").style.display!="block"){
+      if(ballUp==false){
+        ballE.style.animation = "ballUpMove 1s linear forwards";
+      }
+      else{
+        ballE.style.animation = "ballDownMove 1s linear forwards";
+      } 
+    }
+  })
+    //改變障礙物速度
+/*   var rockE = document.getElementById("rock");
+  rockE.addEventListener("animationend", function(){
+    console.log((Math.floor(Math.random()*3)+2)/2 +'s');
+    rockE.style.animationName="none";
+    setTimeout(function(){
+      rockE.style.animation="rockMove 2s linear forwards";
+      if(seconds<100)
+        rockE.style.animationDuration = (Math.floor(Math.random()*3)+2)  +'s';
+      else if(seconds<200)
+        rockE.style.animationDuration = (Math.floor(Math.random()*3)+2)/1.25  +'s';
+      else if(seconds<300)
+        rockE.style.animationDuration = (Math.floor(Math.random()*3)+2)/1.5  +'s';
+      else if(seconds<400)
+        rockE.style.animationDuration = (Math.floor(Math.random()*3)+2)/1.75  +'s';
+      else if(seconds<500)
+        rockE.style.animationDuration = (Math.floor(Math.random()*3)+2)/2  +'s';
+    }, 100)
+  });  */
+  function checkLose(){
+    var bx = document.getElementById("ball").offsetLeft;
+    var by = document.getElementById("ball").offsetTop;
+    var rx = document.getElementById("rock").offsetLeft;
+    var ry = document.getElementById("rock").offsetTop;
+    var tRx = document.getElementById("tRock").offsetLeft;
+    var tRy = document.getElementById("tRock").offsetTop;
+    if((Math.abs(bx-rx)<=30 && Math.abs(by-ry)<=30) || (Math.abs(bx-tRx)<=30 && Math.abs(by-tRy)<=30)){
+      function stopGame(){
+      document.getElementById("rock").style.animationPlayState = "paused";
+      document.getElementById("ball").style.animationPlayState = "paused";
+      document.getElementById("tRock").style.animationPlayState = "paused";
+      
+      clearInterval(checkSet);
+      clearInterval(timeSet);
+      }
+      stopGame();
+      document.getElementById("rePic").style.display = "block";
+    }
+    
+  }
+  var checkSet = setInterval(checkLose, 10);
+
+  function gameStart(){
+    location.reload();
+  }
+
+  var seconds=0; 
+  function time(){
+    seconds++;
+    if(seconds==10000){
+      stopGame();
+    }
+    var str="";
+    for(var i=0; i<5-seconds.toString().length; i++)
+      str+='0';
+    document.getElementById("score").innerHTML="score " + str + seconds;
+  }
+  var timeSet=setInterval(time, 100);
+</script>
+</html>
